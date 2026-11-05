@@ -1,5 +1,48 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#171526"><title>MY FITNESS</title><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><style>
-:root{color-scheme:dark;--bg:#11101a;--panel:#1c1a29;--panel2:#252236;--text:#f5f3ff;--muted:#aaa5bd;--accent:#a78bfa;--line:#353147;--green:#55d6a0}*{box-sizing:border-box}body{margin:0;background:linear-gradient(160deg,#19162a,#101019 60%);color:var(--text);font:15px system-ui,-apple-system,Segoe UI,sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}main{max-width:760px;margin:auto;padding:18px 15px 100px}.head{display:flex;justify-content:space-between;align-items:center;margin:5px 0 20px}.brand{font-size:17px;font-weight:850;letter-spacing:.12em}.sub,.muted,small{color:var(--muted)}h1{font-size:27px;margin:4px 0 16px}h2{font-size:16px;margin:0 0 13px}.panel,.card{background:var(--panel);border:1px solid var(--line);border-radius:19px;padding:16px;margin-bottom:12px}.hero{background:linear-gradient(135deg,#302244,#211a31);border-color:#49345e}.hero strong{font-size:36px;display:block;margin:7px 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.metric b{display:block;font-size:25px;margin:5px 0}.metric small{font-size:11px;text-transform:uppercase;letter-spacing:.07em}.bar{height:8px;border-radius:20px;background:#393347;overflow:hidden;margin:10px 0}.bar i{display:block;height:100%;background:var(--accent);border-radius:20px}.row{display:flex;align-items:center;justify-content:space-between;gap:12px}.btn{border:0;border-radius:12px;padding:12px 15px;background:var(--accent);color:#191326;font-weight:750;font-size:14px}.btn.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}.btn.danger{background:#4b2638;color:#ffdce8}.actions{display:flex;gap:8px;flex-wrap:wrap}.field{margin:11px 0}.field label{display:block;color:var(--muted);font-size:12px;margin-bottom:6px}input,select,textarea{width:100%;background:#12111b;color:var(--text);border:1px solid #413a52;border-radius:11px;padding:12px;font:inherit;min-height:44px}textarea{min-height:76px;resize:vertical}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.entry{border-top:1px solid var(--line);padding:12px 0}.entry:first-child{border-top:0}.nav{position:fixed;bottom:0;left:0;right:0;background:#171521f2;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:8px 4px calc(8px + env(safe-area-inset-bottom));z-index:4;backdrop-filter:blur(14px)}.nav button{background:none;border:0;color:var(--muted);font-size:11px;padding:5px 3px;min-width:52px}.nav button span{display:block;font-size:20px;margin-bottom:2px}.nav button.active{color:#d9c9ff}.hidden{display:none!important}.tag{font-size:11px;background:#342a46;padding:5px 9px;border-radius:20px;color:#d9c9ff}.empty{color:var(--muted);text-align:center;padding:18px 4px}.notice{font-size:12px;color:var(--muted);line-height:1.5}.list{margin-top:8px}.section-title{margin:22px 0 10px;color:#d7d0e7;font-size:13px;font-weight:700}.smallbtn{padding:7px 10px;font-size:12px}
+:root{color-scheme:dark;--bg:#000000;--panel:#111111;--panel2:#242424;--text:#f7f7f7;--muted:#a7a7a7;--accent:#19b65a;--line:#292929;--green:#19b65a}
+*{box-sizing:border-box}
+html{background:#000;scroll-behavior:smooth}
+body{margin:0;background:#000;color:var(--text);font:16px/1.48 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);-webkit-font-smoothing:antialiased}
+main{max-width:760px;margin:auto;padding:18px 16px 104px}
+.head{display:flex;justify-content:space-between;align-items:center;margin:5px 0 24px}
+.brand{font-size:21px;font-weight:900;letter-spacing:-.04em}
+.sub,.muted,small{color:var(--muted)}
+h1{font-size:29px;line-height:1.15;letter-spacing:-.045em;margin:4px 0 18px;font-weight:850}
+h2{font-size:19px;letter-spacing:-.025em;margin:0 0 14px;font-weight:800}
+.panel,.card{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:18px;margin-bottom:13px;box-shadow:0 1px 0 #ffffff08}
+.hero{background:#101010;border-color:#303030}
+.hero strong{font-size:40px;letter-spacing:-.045em;display:block;margin:8px 0;color:var(--green)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.metric{background:#242424;border:1px solid #242424;padding:16px}
+.metric b{display:block;font-size:27px;letter-spacing:-.035em;margin:5px 0;color:#fff}
+.metric small{font-size:12px;text-transform:uppercase;letter-spacing:.025em;font-weight:750}
+.bar{height:9px;border-radius:20px;background:#303030;overflow:hidden;margin:12px 0}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:20px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.btn{border:0;border-radius:14px;padding:13px 17px;background:var(--accent);color:#061b0d;font-weight:850;font-size:15px;min-height:46px}
+.btn.secondary{background:#242424;color:#f5f5f5;border:1px solid #393939}
+.btn.danger{background:#492126;color:#ffdce0}
+.actions{display:flex;gap:9px;flex-wrap:wrap}
+.field{margin:12px 0}
+.field label{display:block;color:var(--muted);font-size:13px;font-weight:650;margin-bottom:7px}
+input,select,textarea{width:100%;background:#090909;color:var(--text);border:1px solid #414141;border-radius:15px;padding:13px 14px;font:inherit;min-height:48px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 2px #19b65a25}
+textarea{min-height:82px;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.entry{border-top:1px solid var(--line);padding:14px 0}
+.entry:first-child{border-top:0}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#090909f5;border-top:1px solid #292929;display:flex;justify-content:space-around;padding:9px 4px calc(9px + env(safe-area-inset-bottom));z-index:4;backdrop-filter:blur(16px)}
+.nav button{background:none;border:0;color:#999;font-size:11px;font-weight:650;padding:5px 3px;min-width:52px}
+.nav button span{display:block;font-size:21px;margin-bottom:2px}
+.nav button.active{color:var(--green)}
+.hidden{display:none!important}
+.tag{font-size:11px;background:#10291a;padding:6px 10px;border-radius:20px;color:#43d17c;font-weight:800}
+.empty{color:var(--muted);text-align:center;padding:20px 4px}
+.notice{font-size:12px;color:var(--muted);line-height:1.55}
+.list{margin-top:8px}
+.section-title{margin:22px 0 10px;color:#dedede;font-size:14px;font-weight:800}
+.smallbtn{padding:7px 10px;font-size:12px;min-height:34px}
+@media(max-width:380px){main{padding-left:12px;padding-right:12px}.metric b{font-size:24px}.brand{font-size:19px}}
 </style></head><body><main><div class="head"><div><div class="brand">MY FITNESS</div><div class="sub">Your private progress log</div></div><span class="tag">OFFLINE READY</span></div>
 <section id="home" class="page"><h1>Dashboard</h1><div class="panel hero"><div class="muted">Current weight</div><strong id="homeWeight">— <small>kg</small></strong><div class="muted" id="weightSub">Add your first weigh-in</div><div class="bar"><i id="weightBar" style="width:0%"></i></div><div class="row"><span class="muted">Goal: <b id="goalLabel">60</b> kg</span><span id="weightPct" class="tag">0% there</span></div></div><div class="grid"><div class="card metric"><small>Weight gained</small><b id="gained">—</b><span class="muted">kg from start</span></div><div class="card metric"><small>Workouts</small><b id="workouts">0</b><span class="muted">logged total</span></div><div class="card metric"><small>Today's protein</small><b id="protein">0 g</b><span class="muted" id="proteinGoalText">Daily goal</span></div><div class="card metric"><small>Last sleep</small><b id="sleepHours">—</b><span class="muted">hours</span></div></div><div class="panel"><div class="row"><h2>Today’s nutrition</h2><span class="muted" id="calText">0 kcal</span></div><div class="bar"><i id="calBar" style="width:0%"></i></div><div class="row"><span class="muted">Calories logged</span><span id="calGoalText">Goal 2200 kcal</span></div></div><div class="actions"><button class="btn" onclick="show('weight')">＋ Add weight</button><button class="btn secondary" onclick="show('food')">＋ Add meal</button></div><p class="notice">Use this tracker to record progress, not to push rapid weight gain. Your health check and dental care come first before intense training.</p></section>
 <section id="weight" class="page hidden"><h1>Weight</h1><div class="panel"><h2>Log a weigh-in</h2><div class="two"><div class="field"><label>Date</label><input id="wDate" type="date"></div><div class="field"><label>Weight (kg)</label><input id="wVal" type="number" step="0.1" min="1" placeholder="48.0"></div></div><div class="field"><label>Note (optional)</label><input id="wNote" placeholder="Morning, before breakfast…"></div><button class="btn" onclick="addWeight()">Save weigh-in</button></div><div class="panel"><div class="row"><h2>Weight history</h2><span class="muted" id="wCount">0 entries</span></div><div id="weightList" class="list"></div></div></section>
