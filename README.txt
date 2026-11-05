@@ -1,29 +1,22 @@
-MY FITNESS — phone installation guide
+MY FITNESS — COMPLETE GREEN THEME PACKAGE
 
-WHAT THIS IS
-A private, installable web app (PWA), not an APK. This edition uses a pure black background, bold white typography, charcoal rounded cards, and green highlights, with weight, food, gym, sleep, history, goals, and backup/restore. Records are saved locally in your browser. No account is needed.
+CONTENTS
+- index.html: latest app, including nutrition logging and automatic calorie/protein estimates
+- sw.js: service worker with updated cache version
+- manifest.webmanifest: installable app settings
+- icon-192.png and icon-512.png: app icons
+- README.txt: these instructions
 
-FIRST: PUT IT ONLINE (one-time setup)
-The app must be hosted on an HTTPS address before Android can install it. The easiest phone-only route is GitHub Pages:
-1. On your phone, open https://github.com and sign in or create an account.
-2. Create a new repository. Name it my-fitness and set it to Public.
-3. In the repository choose Add file > Upload files. Upload ALL files in this folder (index.html, manifest.webmanifest, sw.js, icon-192.png, icon-512.png). Do not upload only the ZIP.
-4. Commit the files.
-5. Open repository Settings > Pages. Under Build and deployment choose Deploy from a branch; select main and / (root), then Save.
-6. Wait a minute or two. GitHub will show your website address, usually https://YOUR-USERNAME.github.io/my-fitness/
-
-INSTALL ON YOUR SAMSUNG GALAXY A13
-1. Open that website address in Google Chrome (not the GitHub repository page).
-2. Tap Chrome's ⋮ menu.
-3. Tap Install app or Add to Home screen, then confirm.
-4. Open MY FITNESS from your home screen. It can work offline after the first successful load.
+UPDATE YOUR EXISTING GITHUB PAGES APP
+1. Make a backup first: in MY FITNESS, open More > Backup & restore > Export backup.
+2. Extract this ZIP. Open the my_fitness_tracker folder.
+3. In your existing GitHub repository, upload ALL FIVE files from this folder to the repository root (not an extra nested folder).
+4. Replace files with the same names and commit the changes.
+5. Keep the same repository and GitHub Pages URL.
+6. Close and reopen the installed app. If it does not update, open the website in Chrome and refresh; the updated service worker should take over.
 
 IMPORTANT
-- Export a JSON backup from More > Backup & restore regularly.
-- Browser data can be lost if you clear Chrome storage or uninstall/reset the app. Keep backups somewhere safe.
-- Data does not sync automatically between devices.
-- The app is a tracker, not medical advice. Given your low body weight and chewing difficulties, get medical/dental assessment before starting strenuous gym training.
-
-
-UPDATE AN EXISTING GITHUB PAGES SITE
-If you already published an earlier version, you do NOT need a new repository. Open your existing my-fitness repository on GitHub, choose Add file > Upload files, upload the updated files from this folder, and confirm that GitHub replaces the existing files (especially index.html, manifest.webmanifest, and sw.js). Commit the changes. Then open your published site in Chrome and refresh it. If the installed app still shows the old design, close it fully, open the website in Chrome, refresh once more, and reopen the installed app. The service-worker cache has been versioned to v4 to help update the design.
+- Do not upload GoogleAppsScript.gs, backup keys, access tokens, or other secrets to a public GitHub repository. Keep the Apps Script source inside your Google Apps Script project.
+- The app's records are stored locally in the browser/app storage. Export backups regularly until cloud sync has been tested and verified.
+- Calorie and protein values are estimates based on the selected food and quantity; recipes, brands, and preparation methods can change the actual values.
+- This is an installable web app (PWA), not an Android APK.
