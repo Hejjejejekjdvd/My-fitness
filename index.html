@@ -50,10 +50,16 @@ textarea{min-height:82px;resize:vertical}
 <section id="gym" class="page hidden"><h1>Gym log</h1><div class="panel"><h2>Record a session / exercise</h2><div class="two"><div class="field"><label>Date</label><input id="gDate" type="date"></div><div class="field"><label>Duration (min)</label><input id="gDuration" type="number" min="0" placeholder="30"></div></div><div class="field"><label>Exercise / session</label><input id="gName" placeholder="e.g. Full body workout"></div><div class="two"><div class="field"><label>Sets</label><input id="gSets" type="number" min="0" placeholder="3"></div><div class="field"><label>Reps</label><input id="gReps" type="number" min="0" placeholder="10"></div></div><div class="field"><label>Weight used (kg, optional)</label><input id="gLoad" type="number" min="0" step="0.5" placeholder="0"></div><div class="field"><label>Notes</label><textarea id="gNote" placeholder="How did it feel? Any PRs?"></textarea></div><button class="btn" onclick="addGym()">Save workout</button></div><div class="panel"><h2>Workout history</h2><div id="gymList"></div></div><p class="notice">Until a doctor has assessed your low body weight and cleared exercise, keep activity gentle and avoid heavy lifting or training to failure.</p></section>
 <section id="sleep" class="page hidden"><h1>Sleep</h1><div class="panel"><h2>Log your sleep</h2><div class="two"><div class="field"><label>Bedtime</label><input id="sBed" type="time" value="01:00"></div><div class="field"><label>Wake time</label><input id="sWake" type="time" value="10:00"></div></div><div class="field"><label>Date (wake-up date)</label><input id="sDate" type="date"></div><div class="field"><label>Note (optional)</label><input id="sNote" placeholder="Rested, woke up once…"></div><button class="btn" onclick="addSleep()">Save sleep</button></div><div class="panel"><h2>Sleep history</h2><div id="sleepList"></div></div></section>
 <section id="history" class="page hidden"><h1>Progress history</h1><div class="panel"><h2>Weight trend</h2><div id="weightTrend" class="muted">Add weigh-ins to see your trend.</div></div><div class="panel"><h2>Recent activity</h2><div id="allHistory"></div></div></section>
-<section id="more" class="page hidden"><h1>More</h1><div class="panel"><h2>Your goals</h2><div class="two"><div class="field"><label>Target weight (kg)</label><input id="goalWeight" type="number" step="0.1" min="1"></div><div class="field"><label>Starting weight (kg)</label><input id="startWeight" type="number" step="0.1" min="1"></div></div><div class="two"><div class="field"><label>Daily calorie goal</label><input id="goalCal" type="number" min="0"></div><div class="field"><label>Daily protein goal (g)</label><input id="goalPro" type="number" min="0"></div></div><button class="btn" onclick="saveGoals()">Save goals</button></div><div class="panel"><h2>Backup & restore</h2><p class="notice">Your records stay on this device in this browser. Export a backup regularly, especially before clearing browser data or changing phones.</p><div class="actions"><button class="btn" onclick="exportData()">Export backup</button><label class="btn secondary">Import backup<input id="importFile" type="file" accept="application/json" hidden onchange="importData(event)"></label></div></div><div class="panel"><h2>Automatic Google backup</h2><p class="notice">Connect your private Google Sheets backup once. New entries will save on this phone immediately and sync to your Google Sheet automatically when online.</p><div class="field"><label>Google Apps Script web app URL</label><input id="cloudUrl" type="url" placeholder="https://script.google.com/macros/s/.../exec" autocomplete="off"></div><div class="field"><label>Private backup key</label><input id="cloudToken" type="password" placeholder="Paste your backup key" autocomplete="off"></div><div class="actions"><button class="btn" onclick="connectCloud()">Connect & back up this phone</button><button class="btn secondary" onclick="syncNow()">Sync now</button></div><div id="cloudStatus" class="notice" role="status" aria-live="polite">Not connected. Your records are currently saved only on this device.</div><div class="actions"><button class="btn secondary" onclick="restoreCloud()">Restore from Google backup</button><button class="btn secondary" onclick="disconnectCloud()">Disconnect</button></div><p class="notice">Your spreadsheet stays in your Google Drive. The app stores the connection details only on this device. Anyone with both your web-app URL and private key could access your backup, so do not share the key.</p></div><div class="panel"><h2>Privacy</h2><p class="notice">Your records are stored locally and, if connected, in your private Google Sheets backup. Google account access and spreadsheet ownership remain under your control.</p><p class="notice">There is no one-tap option to erase all your records. You can still delete individual entries or import a backup.</p></div><div class="panel"><h2>Install on Android</h2><p class="notice">After publishing this folder to a secure HTTPS website, open its link in Chrome, tap ⋮ and choose “Add to Home screen” or “Install app”.</p></div></section>
+<section id="more" class="page hidden"><h1>More</h1>
+<div class="panel"><h2>Cloud account</h2>
+<p class="notice">Sign in with Google to sync your fitness records to your private Firebase account. Your records also remain saved on this phone. Use the same Google account on a new phone to restore them.</p>
+<div class="actions"><button class="btn" id="firebaseSignIn" onclick="window.firebaseSignIn()">Sign in with Google</button><button class="btn secondary hidden" id="firebaseSignOut" onclick="window.firebaseSignOut()">Sign out</button></div>
+<div id="firebaseUser" class="notice" style="margin-top:10px">Not signed in. Records are currently stored on this device only.</div>
+<div id="firebaseStatus" class="notice" role="status" aria-live="polite">Cloud sync is not connected.</div>
+</div><div class="panel"><h2>Your goals</h2><div class="two"><div class="field"><label>Target weight (kg)</label><input id="goalWeight" type="number" step="0.1" min="1"></div><div class="field"><label>Starting weight (kg)</label><input id="startWeight" type="number" step="0.1" min="1"></div></div><div class="two"><div class="field"><label>Daily calorie goal</label><input id="goalCal" type="number" min="0"></div><div class="field"><label>Daily protein goal (g)</label><input id="goalPro" type="number" min="0"></div></div><button class="btn" onclick="saveGoals()">Save goals</button></div><div class="panel"><h2>Backup & restore</h2><p class="notice">Export a separate backup occasionally as an extra safety copy. Firebase cloud sync is available after Google sign-in.</p><div class="actions"><button class="btn" onclick="exportData()">Export backup</button><label class="btn secondary">Import backup<input id="importFile" type="file" accept="application/json" hidden onchange="importData(event)"></label></div></div><div class="panel"><h2>Privacy</h2><p class="notice">Your records are stored on this device and, after Google sign-in, in your private Firebase account. Firestore security rules restrict access to your own account.</p><p class="notice">There is no one-tap option to erase all your records. You can still delete individual entries or import a backup.</p></div><div class="panel"><h2>Install on Android</h2><p class="notice">After publishing this folder to a secure HTTPS website, open its link in Chrome, tap ⋮ and choose “Add to Home screen” or “Install app”.</p></div></section>
 </main><nav class="nav"><button class="active" data-page="home" onclick="show('home')"><span>⌂</span>Home</button><button data-page="weight" onclick="show('weight')"><span>⚖</span>Weight</button><button data-page="food" onclick="show('food')"><span>♧</span>Food</button><button data-page="gym" onclick="show('gym')"><span>✣</span>Gym</button><button data-page="more" onclick="show('more')"><span>☰</span>More</button></nav>
 <script>
-const KEY='myfitness-v3', CLOUD_KEY='myfitness-cloud-v1';const today=()=>new Date().toISOString().slice(0,10);let data=JSON.parse(localStorage.getItem(KEY)||'null')||{weights:[],foods:[],gyms:[],sleeps:[],goals:{target:60,start:48,cal:2200,pro:70}};let cloudTimer=null;const cloudConfig=()=>JSON.parse(localStorage.getItem(CLOUD_KEY)||'null');const save=()=>{localStorage.setItem(KEY,JSON.stringify(data));scheduleCloudSave()};const el=id=>document.getElementById(id);const num=v=>Number(v)||0;const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));function show(id){document.querySelectorAll('.page').forEach(x=>x.classList.toggle('hidden',x.id!==id));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===id));if(id==='history')renderHistory();window.scrollTo(0,0)}function dayFoods(){return data.foods.filter(x=>x.date===today())}function render(){let ws=[...data.weights].sort((a,b)=>a.date.localeCompare(b.date)),latest=ws.at(-1),first=ws[0],g=data.goals;el('homeWeight').innerHTML=latest?`${latest.value.toFixed(1)} <small>kg</small>`:'— <small>kg</small>';el('weightSub').textContent=latest?`Last logged ${latest.date}`:'Add your first weigh-in';let base=num(g.start)||num(first?.value),gain=latest?latest.value-base:0,pct=g.target>base?Math.max(0,Math.min(100,(gain/(g.target-base))*100)):0;el('goalLabel').textContent=g.target;el('gained').textContent=latest?(gain>=0?'+':'')+gain.toFixed(1):'—';el('weightBar').style.width=pct+'%';el('weightPct').textContent=Math.round(pct)+'% there';el('workouts').textContent=data.gyms.length;let fs=dayFoods(),cal=fs.reduce((a,x)=>a+num(x.cal),0),pro=fs.reduce((a,x)=>a+num(x.pro),0);el('protein').textContent=pro.toFixed(1)+' g';el('proteinGoalText').textContent=`Goal ${g.pro} g`;el('calText').textContent=cal+' kcal';el('calGoalText').textContent=`Goal ${g.cal} kcal`;el('calBar').style.width=Math.min(100,g.cal?cal/g.cal*100:0)+'%';el('sleepHours').textContent=data.sleeps.length?data.sleeps.at(-1).hours.toFixed(1):'—';el('wCount').textContent=ws.length+' entries';el('weightList').innerHTML=ws.slice().reverse().map(x=>entry(`${x.value.toFixed(1)} kg`,x.date,x.note,'weights',x.id)).join('')||'<div class="empty">No weigh-ins yet.</div>';el('foodTotals').textContent=`${cal} kcal · ${pro.toFixed(1)} g protein`;el('foodList').innerHTML=fs.slice().reverse().map(x=>entry(`${esc(x.meal)} · ${esc(x.name)}`,`${x.cal||0} kcal · ${x.pro||0} g protein${x.carb!=null?' · '+x.carb+' g carbs':''}${x.fat!=null?' · '+x.fat+' g fat':''}${x.qty?' · '+x.qty+' '+(x.unit||'g'):''}`,'','foods',x.id)).join('')||'<div class="empty">No meals logged today.</div>';el('gymList').innerHTML=data.gyms.slice().reverse().map(x=>entry(esc(x.name),`${x.date} · ${x.duration||0} min`,`${x.sets||'—'} sets × ${x.reps||'—'} reps · ${x.load||0} kg ${x.note||''}`,'gyms',x.id)).join('')||'<div class="empty">No workouts logged yet.</div>';el('sleepList').innerHTML=data.sleeps.slice().reverse().map(x=>entry(`${x.hours.toFixed(1)} hours`,`${x.date} · ${x.bed} → ${x.wake}`,x.note,'sleeps',x.id)).join('')||'<div class="empty">No sleep entries yet.</div>';el('goalWeight').value=g.target;el('startWeight').value=g.start;el('goalCal').value=g.cal;el('goalPro').value=g.pro}
+const KEY='myfitness-v3', CLOUD_KEY='myfitness-cloud-v1';const today=()=>new Date().toISOString().slice(0,10);let data=JSON.parse(localStorage.getItem(KEY)||'null')||{weights:[],foods:[],gyms:[],sleeps:[],goals:{target:60,start:48,cal:2200,pro:70}};let cloudTimer=null;const cloudConfig=()=>JSON.parse(localStorage.getItem(CLOUD_KEY)||'null');const save=()=>{localStorage.setItem(KEY,JSON.stringify(data));if(window.firebaseCloudSave)window.firebaseCloudSave(data)};const el=id=>document.getElementById(id);const num=v=>Number(v)||0;const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));function show(id){document.querySelectorAll('.page').forEach(x=>x.classList.toggle('hidden',x.id!==id));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===id));if(id==='history')renderHistory();window.scrollTo(0,0)}function dayFoods(){return data.foods.filter(x=>x.date===today())}function render(){let ws=[...data.weights].sort((a,b)=>a.date.localeCompare(b.date)),latest=ws.at(-1),first=ws[0],g=data.goals;el('homeWeight').innerHTML=latest?`${latest.value.toFixed(1)} <small>kg</small>`:'— <small>kg</small>';el('weightSub').textContent=latest?`Last logged ${latest.date}`:'Add your first weigh-in';let base=num(g.start)||num(first?.value),gain=latest?latest.value-base:0,pct=g.target>base?Math.max(0,Math.min(100,(gain/(g.target-base))*100)):0;el('goalLabel').textContent=g.target;el('gained').textContent=latest?(gain>=0?'+':'')+gain.toFixed(1):'—';el('weightBar').style.width=pct+'%';el('weightPct').textContent=Math.round(pct)+'% there';el('workouts').textContent=data.gyms.length;let fs=dayFoods(),cal=fs.reduce((a,x)=>a+num(x.cal),0),pro=fs.reduce((a,x)=>a+num(x.pro),0);el('protein').textContent=pro.toFixed(1)+' g';el('proteinGoalText').textContent=`Goal ${g.pro} g`;el('calText').textContent=cal+' kcal';el('calGoalText').textContent=`Goal ${g.cal} kcal`;el('calBar').style.width=Math.min(100,g.cal?cal/g.cal*100:0)+'%';el('sleepHours').textContent=data.sleeps.length?data.sleeps.at(-1).hours.toFixed(1):'—';el('wCount').textContent=ws.length+' entries';el('weightList').innerHTML=ws.slice().reverse().map(x=>entry(`${x.value.toFixed(1)} kg`,x.date,x.note,'weights',x.id)).join('')||'<div class="empty">No weigh-ins yet.</div>';el('foodTotals').textContent=`${cal} kcal · ${pro.toFixed(1)} g protein`;el('foodList').innerHTML=fs.slice().reverse().map(x=>entry(`${esc(x.meal)} · ${esc(x.name)}`,`${x.cal||0} kcal · ${x.pro||0} g protein${x.carb!=null?' · '+x.carb+' g carbs':''}${x.fat!=null?' · '+x.fat+' g fat':''}${x.qty?' · '+x.qty+' '+(x.unit||'g'):''}`,'','foods',x.id)).join('')||'<div class="empty">No meals logged today.</div>';el('gymList').innerHTML=data.gyms.slice().reverse().map(x=>entry(esc(x.name),`${x.date} · ${x.duration||0} min`,`${x.sets||'—'} sets × ${x.reps||'—'} reps · ${x.load||0} kg ${x.note||''}`,'gyms',x.id)).join('')||'<div class="empty">No workouts logged yet.</div>';el('sleepList').innerHTML=data.sleeps.slice().reverse().map(x=>entry(`${x.hours.toFixed(1)} hours`,`${x.date} · ${x.bed} → ${x.wake}`,x.note,'sleeps',x.id)).join('')||'<div class="empty">No sleep entries yet.</div>';el('goalWeight').value=g.target;el('startWeight').value=g.start;el('goalCal').value=g.cal;el('goalPro').value=g.pro}
 function entry(title,meta,note,type,id){return `<div class="entry"><div class="row"><b>${title}</b><button class="btn secondary smallbtn" onclick="del('${type}','${id}')">Delete</button></div><div class="muted">${esc(meta)}</div>${note?`<div class="muted">${esc(note)}</div>`:''}</div>`}function id(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}function addWeight(){let v=num(el('wVal').value);if(v<=0)return alert('Enter a valid weight.');data.weights.push({id:id(),date:el('wDate').value||today(),value:v,note:el('wNote').value});save();el('wVal').value='';el('wNote').value='';render()}const FOOD_DB={
 'cooked rice':{cal:130,pro:2.7,carb:28.2,fat:0.3,unit:'g'},'cooked dal':{cal:116,pro:9,carb:20,fat:0.4,unit:'g'},'whole milk':{cal:61,pro:3.2,carb:4.8,fat:3.3,unit:'ml'},'boiled egg':{cal:155,pro:12.6,carb:1.1,fat:10.6,unit:'g'},'banana':{cal:89,pro:1.1,carb:22.8,fat:0.3,unit:'g'},'paneer':{cal:265,pro:18.3,carb:1.2,fat:20.8,unit:'g'},'cooked chicken breast':{cal:165,pro:31,carb:0,fat:3.6,unit:'g'},'chapati':{cal:297,pro:9,carb:55,fat:7,unit:'g'},'curd':{cal:61,pro:3.5,carb:4.7,fat:3.3,unit:'g'},'oats':{cal:389,pro:16.9,carb:66.3,fat:6.9,unit:'g'},'peanuts':{cal:567,pro:25.8,carb:16.1,fat:49.2,unit:'g'},'cooked potato':{cal:87,pro:1.9,carb:20.1,fat:0.1,unit:'g'},'apple':{cal:52,pro:0.3,carb:13.8,fat:0.2,unit:'g'},'white bread':{cal:266,pro:8.9,carb:49.4,fat:3.2,unit:'g'}};
 function estimateFood(){let name=el('fName').value.trim().toLowerCase(),item=FOOD_DB[name],qty=num(el('fQty').value),unit=el('fUnit').value;if(!item)return alert('Choose an exact food from the suggestions, or enter nutrition manually.');if(!qty)return alert('Enter a quantity greater than zero.');if(item.unit!==unit)return alert(`For ${name}, use ${item.unit}.`);let factor=qty/100;el('fCal').value=Math.round(item.cal*factor);el('fPro').value=(item.pro*factor).toFixed(1);el('fCarb').value=(item.carb*factor).toFixed(1);el('fFat').value=(item.fat*factor).toFixed(1);el('foodEstimateNote').textContent=`Estimate for ${qty} ${unit}: typical reference values. Actual nutrition varies by variety, brand and preparation.`}
@@ -68,4 +74,143 @@ async function restoreCloud(){const c=cloudConfig();if(!validCloudConfig(c)){ale
 function disconnectCloud(){if(!confirm('Disconnect automatic cloud sync on this phone? Your Google Sheet backup will not be deleted.'))return;localStorage.removeItem(CLOUD_KEY);if(el('cloudUrl'))el('cloudUrl').value='';if(el('cloudToken'))el('cloudToken').value='';cloudStatus('Disconnected. Your Google backup remains in Drive.');}
 function loadCloudFields(){const c=cloudConfig();if(c){el('cloudUrl').value=c.url;el('cloudToken').value=c.token;cloudStatus('Google backup connected on this phone. New changes sync automatically when online.')}}
 ['wDate','gDate','sDate'].forEach(x=>el(x).value=today());if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));render();loadCloudFields();
-</script></body></html>
+window.firebaseApplyRemoteData=(remoteData)=>{if(!remoteData||!Array.isArray(remoteData.weights)||!Array.isArray(remoteData.foods)||!Array.isArray(remoteData.gyms)||!Array.isArray(remoteData.sleeps)||!remoteData.goals)return;data=remoteData;localStorage.setItem(KEY,JSON.stringify(data));render();};
+</script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import {
+  getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult,
+  onAuthStateChanged, signOut
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import {
+  getFirestore, doc, getDocFromServer, setDoc, onSnapshot, serverTimestamp,
+  enableIndexedDbPersistence
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCvKlVGmEe8QdyS3j9amf1KgbYUJDUCbxA",
+  authDomain: "my-fitness-97022.firebaseapp.com",
+  projectId: "my-fitness-97022",
+  storageBucket: "my-fitness-97022.firebasestorage.app",
+  messagingSenderId: "538179271957",
+  appId: "1:538179271957:web:4551ebd1d4af9cc75bbd1c",
+  measurementId: "G-K5XPQPNC6P"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const provider = new GoogleAuthProvider();
+provider.setCustomParameters({ prompt: "select_account" });
+
+const statusEl = document.getElementById("firebaseStatus");
+const userEl = document.getElementById("firebaseUser");
+const signInBtn = document.getElementById("firebaseSignIn");
+const signOutBtn = document.getElementById("firebaseSignOut");
+let activeUid = null;
+let unsubscribe = null;
+let saveTimer = null;
+let applyingRemote = false;
+
+function status(message) { if (statusEl) statusEl.textContent = message; }
+
+window.firebaseSignIn = async () => {
+  try {
+    status("Opening Google sign-in…");
+    await signInWithRedirect(auth, provider);
+  } catch (error) {
+    status("Sign-in could not start: " + error.message);
+  }
+};
+
+window.firebaseSignOut = async () => {
+  try {
+    if (unsubscribe) unsubscribe();
+    unsubscribe = null;
+    activeUid = null;
+    await signOut(auth);
+    status("Signed out. Your local copy remains on this phone.");
+  } catch (error) {
+    status("Could not sign out: " + error.message);
+  }
+};
+
+window.firebaseCloudSave = (appData) => {
+  if (!auth.currentUser || applyingRemote) return;
+  clearTimeout(saveTimer);
+  const user = auth.currentUser;
+  const payload = JSON.parse(JSON.stringify(appData));
+  status("Saved on this phone. Syncing to your Google account…");
+  saveTimer = setTimeout(async () => {
+    try {
+      await setDoc(doc(db, "users", user.uid), {
+        appData: payload,
+        updatedAt: serverTimestamp()
+      });
+      status("All changes synced to your Google account.");
+    } catch (error) {
+      status("Cloud sync failed; your phone copy is still saved. " + error.message);
+    }
+  }, 900);
+};
+
+getRedirectResult(auth).catch(error => {
+  status("Google sign-in issue: " + error.message);
+});
+
+onAuthStateChanged(auth, async (user) => {
+  if (unsubscribe) { unsubscribe(); unsubscribe = null; }
+  activeUid = user ? user.uid : null;
+  if (!user) {
+    userEl.textContent = "Not signed in. Records are currently stored on this device only.";
+    signInBtn.classList.remove("hidden");
+    signOutBtn.classList.add("hidden");
+    status("Cloud sync is not connected.");
+    return;
+  }
+
+  userEl.textContent = "Signed in as " + (user.email || "your Google account");
+  signInBtn.classList.add("hidden");
+  signOutBtn.classList.remove("hidden");
+  status("Checking your cloud records…");
+
+  const userDoc = doc(db, "users", user.uid);
+  try {
+    const snap = await getDocFromServer(userDoc);
+    if (snap.exists() && snap.data().appData) {
+      applyingRemote = true;
+      window.firebaseApplyRemoteData(snap.data().appData);
+      applyingRemote = false;
+      status("Your cloud records have been loaded and are ready to sync.");
+    } else {
+      const localData = JSON.parse(localStorage.getItem("myfitness-v3") || "null") ||
+        {weights:[], foods:[], gyms:[], sleeps:[], goals:{target:60,start:48,cal:2200,pro:70}};
+      await setDoc(userDoc, { appData: localData, updatedAt: serverTimestamp() });
+      status("Cloud account created. Your fitness records are now backed up.");
+    }
+  } catch (error) {
+    applyingRemote = false;
+    status("Could not reach your cloud records. Your phone copy is unchanged. " + error.message);
+    return;
+  }
+
+  unsubscribe = onSnapshot(userDoc, (snapshot) => {
+    if (!snapshot.exists() || !snapshot.data().appData) return;
+    const remote = snapshot.data().appData;
+    const local = JSON.parse(localStorage.getItem("myfitness-v3") || "null");
+    if (JSON.stringify(remote) !== JSON.stringify(local)) {
+      applyingRemote = true;
+      window.firebaseApplyRemoteData(remote);
+      applyingRemote = false;
+      status("Your records were updated from the cloud.");
+    }
+  }, (error) => status("Cloud listener stopped: " + error.message));
+});
+
+// Enable persistent Firestore cache when supported by this browser.
+enableIndexedDbPersistence(db).catch(() => {
+  // Persistence may already be enabled or unavailable; online cloud sync still works.
+});
+</script>
+
+</body></html>
